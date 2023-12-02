@@ -1,0 +1,56 @@
+name: Build, Deploy and Release
+
+on:
+  release:
+    types:
+      - created
+  push:
+    branches:
+      - main
+
+jobs:
+   deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        id: setup-node
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Yarn
+        # You may pin to the exact commit or the version.
+        # uses: DerYeger/yarn-setup-action@f55be5383ea94f5eb25b20aee609af4603a68dde
+        uses: DerYeger/yarn-setup-action@v1.0.1
+        with:
+          node-version: ${{ steps.setup-node.outputs.node-version }}
+
+      - name: Build Docs
+        run: |
+          yarn install
+          yarn docs:build
+          echo "do not need it" > docs/.vuepress/dist/.nojekyll
+          cd ..
+
+      - name: Deploy Docs
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          # Branch where docs deploy to
+          branch: gh-pages
+          folder: docs/.vuepress/dist
+
+      - name: Zip Build
+        if: github.event_name != 'pull_request'
+        run: zip -r docs.zip ./docs/.vuepress/dist
+
+      - name: Create Release and Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/')
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: Auto release by Actions.
+          draft: false
+          prerelease: false
+          files: |
+            docs.zip

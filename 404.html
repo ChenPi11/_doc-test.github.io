@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-rc.0">
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+      html.dark {
+        --c-bg: #22272e;
+      }
+      html, body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme');
+			const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+				document.documentElement.classList.toggle('dark', true);
+			}
+    </script>
+    <script>
+function isLocale(str) {
+    regex = /^[a-z]{2,3}(_[a-z]{2,3}){1,2}$/;
+    return regex.test(str.toLowerCase());
+}
+
+const defaultLocale = 'en_US';
+const locale = window.navigator.language.replace(/-/, '_');
+const path = window.location.pathname;
+const currentLocale = path.split('/')[1];
+
+if (!isLocale(currentLocale)) {
+    console.log('Invalid locale: ' + currentLocale);
+    window.location.pathname = '/' + defaultLocale + path;
+}
+</script><title>C++ Plus Documention</title><meta name="description" content="C++ Plus Documention">
+    <link rel="preload" href="/assets/style-pBmjJHNx.css" as="style"><link rel="stylesheet" href="/assets/style-pBmjJHNx.css">
+    <link rel="modulepreload" href="/assets/app-5kG94Ohf.js"><link rel="modulepreload" href="/assets/404.html-6Yl8cQE3.js"><link rel="modulepreload" href="/assets/404.html-o0uoSToi.js">
+    <link rel="prefetch" href="/assets/index.html-Vqzhccus.js" as="script"><link rel="prefetch" href="/assets/index.html-uHpM231m.js" as="script"><link rel="prefetch" href="/assets/index.html-lo26I1tJ.js" as="script"><link rel="prefetch" href="/assets/index.html-soqo5lO7.js" as="script"><link rel="prefetch" href="/assets/index.html-d6DfojVK.js" as="script"><link rel="prefetch" href="/assets/index.html-tXEVMYDF.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><main class="page"><div class="theme-default-content"><h1>404</h1><blockquote>There&#39;s nothing here.</blockquote><a href="/" class="">Take me home</a></div></main></div><!----><!--]--></div>
+    <script type="module" src="/assets/app-5kG94Ohf.js" defer></script>
+  </body>
+</html>

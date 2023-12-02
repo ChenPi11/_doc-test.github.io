@@ -38,4 +38,3 @@ jobs:
           # Branch where docs deploy to
           branch: gh-pages
           folder: docs/.vuepress/dist
-

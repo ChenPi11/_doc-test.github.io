@@ -38,19 +38,3 @@ jobs:
           # Branch where docs deploy to
           branch: gh-pages
           folder: docs/.vuepress/dist
-
-      - name: Zip Build
-        if: github.event_name != 'pull_request'
-        run: zip -r docs.zip ./docs/.vuepress/dist
-
-      - name: Create Release and Upload Release Asset
-        uses: softprops/action-gh-release@v1
-        if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/')
-        with:
-          tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }}
-          body: Auto release by Actions.
-          draft: false
-          prerelease: false
-          files: |
-            docs.zip
